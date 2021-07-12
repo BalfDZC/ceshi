@@ -1,6 +1,5 @@
 $(document).ready(function () {
     /***************** Navbar-Collapse ******************/
-
     $(window).scroll(function () {
         if ($(".navbar").offset().top > 50) {
             $(".navbar-fixed-top").addClass("top-nav-collapse");
@@ -88,13 +87,30 @@ $(document).ready(function () {
 
 
     /***************** Wow.js ******************/
-    
+
     new WOW().init();
-    
+
     /***************** Preloader ******************/
-    
+
     var preloader = $('.preloader');
     $(window).load(function () {
         preloader.remove();
     });
+    $('#og-grid').mixItUp();
+
+    function centerModals() {
+        $('#myModal').each(function (i) {
+            var $clone = $(this).clone().css('display', 'block').appendTo('body');
+            var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+            top = top > 0 ? top : 0;
+            $clone.remove();
+            $(this).find('.modal-content').css("margin-top", top);
+        });
+    };
+    $('#myModal').on('show.bs.modal', centerModals);
+
+    var showModal = function (title, data) {
+        $(".modal-title").text(title)
+        $(".modal-body").html(data)
+    }
 })
